@@ -1,0 +1,261 @@
+print("Script initialized")
+
+-- Detect Executor
+local executor = identifyexecutor and identifyexecutor() or "Unknown Executor"
+print("Detected Executor: " .. executor)
+
+-- Create ScreenGui if it doesn't exist
+local player = game.Players.LocalPlayer
+local screenGui = player:WaitForChild("PlayerGui"):FindFirstChild("CustomMenu")
+
+if not screenGui then
+    screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = player:WaitForChild("PlayerGui")
+    screenGui.Name = "CustomMenu"
+end
+
+-- Make the GUI draggable
+local dragging, dragInput, dragStart, startPos
+local function makeDraggable(frame)
+    frame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = frame.Position
+
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    frame.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - dragStart
+            frame.Position = UDim2.new(
+                startPos.X.Scale,
+                startPos.X.Offset + delta.X,
+                startPos.Y.Scale,
+                startPos.Y.Offset + delta.Y
+            )
+        end
+    end)
+end
+
+-- Main Frame
+local frame = Instance.new("Frame")
+frame.Parent = screenGui
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.Size = UDim2.new(0, 400, 0, 300)
+frame.Position = UDim2.new(0.5, -200, 0.5, -150)
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+frame.BorderSizePixel = 0
+makeDraggable(frame)
+
+-- Title
+local title = Instance.new("TextLabel")
+title.Parent = frame
+title.Text = "Custom Menu"
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 20
+title.TextColor3 = Color3.new(1, 1, 1)
+title.BackgroundTransparency = 1
+title.Size = UDim2.new(1, 0, 0, 30)
+
+-- Sidebar
+local sidebar = Instance.new("Frame")
+sidebar.Parent = frame
+sidebar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+sidebar.Size = UDim2.new(0, 100, 1, -30)
+sidebar.Position = UDim2.new(0, 0, 0, 30)
+
+-- Page Frame
+local pageFrame = Instance.new("Frame")
+pageFrame.Parent = frame
+pageFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+pageFrame.Size = UDim2.new(1, -100, 1, -30)
+pageFrame.Position = UDim2.new(0, 100, 0, 30)
+pageFrame.Visible = true
+
+-- Page Buttons
+local function createPageButton(text, order)
+    local button = Instance.new("TextButton")
+    button.Parent = sidebar
+    button.Text = text
+    button.Font = Enum.Font.SourceSans
+    button.TextSize = 16
+    button.TextColor3 = Color3.new(1, 1, 1)
+    button.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    button.Size = UDim2.new(1, 0, 0, 40)
+    button.Position = UDim2.new(0, 0, 0, (order - 1) * 40)
+    return button
+end
+
+-- Pages
+local mainPage = Instance.new("Frame")
+mainPage.Parent = pageFrame
+mainPage.BackgroundTransparency = 1
+mainPage.Size = UDim2.new(1, 0, 1, 0)
+mainPage.Visible = true
+
+local daHoodPage = Instance.new("Frame")
+daHoodPage.Parent = pageFrame
+daHoodPage.BackgroundTransparency = 1
+daHoodPage.Size = UDim2.new(1, 0, 1, 0)
+daHoodPage.Visible = false
+
+local fischPage = Instance.new("Frame")
+fischPage.Parent = pageFrame
+fischPage.BackgroundTransparency = 1
+fischPage.Size = UDim2.new(1, 0, 1, 0)
+fischPage.Visible = false
+
+-- Switch Pages
+local mainButton = createPageButton("Main", 1)
+mainButton.MouseButton1Click:Connect(function()
+    mainPage.Visible = true
+    daHoodPage.Visible = false
+    fischPage.Visible = false
+end)
+
+local daHoodButton = createPageButton("Da Hood", 2)
+daHoodButton.MouseButton1Click:Connect(function()
+    mainPage.Visible = false
+    daHoodPage.Visible = true
+    fischPage.Visible = false
+end)
+
+local fischButton = createPageButton("Fisch", 3)
+fischButton.MouseButton1Click:Connect(function()
+    mainPage.Visible = false
+    daHoodPage.Visible = false
+    fischPage.Visible = true
+end)
+
+-- Buttons for Main Page
+local button1 = Instance.new("TextButton")
+button1.Parent = mainPage
+button1.Text = "Infinite Yield"
+button1.Font = Enum.Font.SourceSans
+button1.TextSize = 16
+button1.TextColor3 = Color3.new(1, 1, 1)
+button1.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+button1.Size = UDim2.new(1, -20, 0, 40)
+button1.Position = UDim2.new(0, 10, 0, 10)
+button1.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Infinite%20Yield.txt"))()
+end)
+
+local button2 = Instance.new("TextButton")
+button2.Parent = mainPage
+button2.Text = "Aimbot/ESP"
+button2.Font = Enum.Font.SourceSans
+button2.TextSize = 16
+button2.TextColor3 = Color3.new(1, 1, 1)
+button2.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+button2.Size = UDim2.new(1, -20, 0, 40)
+button2.Position = UDim2.new(0, 10, 0, 60)
+button2.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/test132141/aimbot-esp-not-mine/refs/heads/main/aimbot", true))()
+end)
+
+local button3 = Instance.new("TextButton")
+button3.Parent = mainPage
+button3.Text = "Rejoin Server"
+button3.Font = Enum.Font.SourceSans
+button3.TextSize = 16
+button3.TextColor3 = Color3.new(1, 1, 1)
+button3.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+button3.Size = UDim2.new(1, -20, 0, 40)
+button3.Position = UDim2.new(0, 10, 0, 110)
+button3.MouseButton1Click:Connect(function()
+    local TeleportService = game:GetService("TeleportService")
+    local placeId = game.PlaceId
+    local jobId = game.JobId
+
+    TeleportService:TeleportToPlaceInstance(placeId, jobId, game.Players.LocalPlayer)
+end)
+
+local flyButton = Instance.new("TextButton")
+flyButton.Parent = mainPage
+flyButton.Text = "Fly"
+flyButton.Font = Enum.Font.SourceSans
+flyButton.TextSize = 16
+flyButton.TextColor3 = Color3.new(1, 1, 1)
+flyButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+flyButton.Size = UDim2.new(1, -20, 0, 40)
+flyButton.Position = UDim2.new(0, 10, 0, 160)
+flyButton.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/test132141/aimbot-esp-not-mine/refs/heads/main/fly", true))()
+end)
+
+-- Da Hood Page - Azure Modded Button
+local azureModdedButton = Instance.new("TextButton")
+azureModdedButton.Parent = daHoodPage
+azureModdedButton.Text = "Azure Modded"
+azureModdedButton.Font = Enum.Font.SourceSans
+azureModdedButton.TextSize = 16
+azureModdedButton.TextColor3 = Color3.new(1, 1, 1)
+azureModdedButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+azureModdedButton.Size = UDim2.new(1, -20, 0, 40)
+azureModdedButton.Position = UDim2.new(0, 10, 0, 10)
+azureModdedButton.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Actyrn/Scripts/main/AzureModded"))()
+end)
+
+-- Fisch Page Buttons
+local freeFischButton = Instance.new("TextButton")
+freeFischButton.Parent = fischPage
+freeFischButton.Text = "Free Fisch Script"
+freeFischButton.Font = Enum.Font.SourceSans
+freeFischButton.TextSize = 16
+freeFischButton.TextColor3 = Color3.new(1, 1, 1)
+freeFischButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+freeFischButton.Size = UDim2.new(1, -20, 0, 40)
+freeFischButton.Position = UDim2.new(0, 10, 0, 10)
+freeFischButton.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/test132141/fischscript/main/fisch.lua"))()
+end)
+
+local keyFischButton = Instance.new("TextButton")
+keyFischButton.Parent = fischPage
+keyFischButton.Text = "Key Required Fisch"
+keyFischButton.Font = Enum.Font.SourceSans
+keyFischButton.TextSize = 16
+keyFischButton.TextColor3 = Color3.new(1, 1, 1)
+keyFischButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+keyFischButton.Size = UDim2.new(1, -20, 0, 40)
+keyFischButton.Position = UDim2.new(0, 10, 0, 60)
+keyFischButton.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/test132141/fischscript/main/fischkey.lua"))()
+end)
+
+local joinFischButton = Instance.new("TextButton")
+joinFischButton.Parent = fischPage
+joinFischButton.Text = "Join Fisch Game"
+joinFischButton.Font = Enum.Font.SourceSans
+joinFischButton.TextSize = 16
+joinFischButton.TextColor3 = Color3.new(1, 1, 1)
+joinFischButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+joinFischButton.Size = UDim2.new(1, -20, 0, 40)
+joinFischButton.Position = UDim2.new(0, 10, 0, 110)
+joinFischButton.MouseButton1Click:Connect(function()
+    local placeId = 16732694052
+    game:GetService("TeleportService"):Teleport(placeId)
+end)
+
+-- Toggle GUI with Z key
+local userInputService = game:GetService("UserInputService")
+userInputService.InputBegan:Connect(function(input, processed)
+    if not processed and input.KeyCode == Enum.KeyCode.Z then
+        frame.Visible = not frame.Visible
+    end
+end)
