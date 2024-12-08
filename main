@@ -208,13 +208,68 @@ azureModdedButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 azureModdedButton.Size = UDim2.new(1, -20, 0, 40)
 azureModdedButton.Position = UDim2.new(0, 10, 0, 10)
 azureModdedButton.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesegod69/scripts/main/azuremodded"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Da-Hood-Mods/main/daHoodV4Modded.lua"))()
 end)
 
--- Toggle GUI with Z key
-local userInputService = game:GetService("UserInputService")
-userInputService.InputBegan:Connect(function(input, processed)
-    if not processed and input.KeyCode == Enum.KeyCode.Z then
-        frame.Visible = not frame.Visible
+-- Da Hood Join Button
+local joinDaHoodButton = Instance.new("TextButton")
+joinDaHoodButton.Parent = daHoodPage
+joinDaHoodButton.Text = "Join Da Hood"
+joinDaHoodButton.Font = Enum.Font.SourceSans
+joinDaHoodButton.TextSize = 16
+joinDaHoodButton.TextColor3 = Color3.new(1, 1, 1)
+joinDaHoodButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+joinDaHoodButton.Size = UDim2.new(1, -20, 0, 40)
+joinDaHoodButton.Position = UDim2.new(0, 10, 0, 60)
+joinDaHoodButton.MouseButton1Click:Connect(function()
+    game:GetService("TeleportService"):Teleport(2788229376) -- Teleport to Da Hood game
+end)
+
+-- Fisch Page
+local joinFischButton = Instance.new("TextButton")
+joinFischButton.Parent = fischPage
+joinFischButton.Text = "Join Fisch"
+joinFischButton.Font = Enum.Font.SourceSans
+joinFischButton.TextSize = 16
+joinFischButton.TextColor3 = Color3.new(1, 1, 1)
+joinFischButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+joinFischButton.Size = UDim2.new(1, -20, 0, 40)
+joinFischButton.Position = UDim2.new(0, 10, 0, 10)
+joinFischButton.MouseButton1Click:Connect(function()
+    game:GetService("TeleportService"):Teleport(16732694052) -- Teleport to Fisch game
+end)
+
+local fischKeyedButton = Instance.new("TextButton")
+fischKeyedButton.Parent = fischPage
+fischKeyedButton.Text = "Fisch Keyed"
+fischKeyedButton.Font = Enum.Font.SourceSans
+fischKeyedButton.TextSize = 16
+fischKeyedButton.TextColor3 = Color3.new(1, 1, 1)
+fischKeyedButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+fischKeyedButton.Size = UDim2.new(1, -20, 0, 40)
+fischKeyedButton.Position = UDim2.new(0, 10, 0, 60)
+fischKeyedButton.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/xZPUHigh/Spectrum-Cloud/main/Loader.lua'))()
+end)
+
+local fischFreeButton = Instance.new("TextButton")
+fischFreeButton.Parent = fischPage
+fischFreeButton.Text = "Fisch Free"
+fischFreeButton.Font = Enum.Font.SourceSans
+fischFreeButton.TextSize = 16
+fischFreeButton.TextColor3 = Color3.new(1, 1, 1)
+fischFreeButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+fischFreeButton.Size = UDim2.new(1, -20, 0, 40)
+fischFreeButton.Position = UDim2.new(0, 10, 0, 110)
+fischFreeButton.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+end)
+
+-- Toggle GUI visibility with "Z" key
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed then
+        if input.KeyCode == Enum.KeyCode.Z then
+            screenGui.Enabled = not screenGui.Enabled
+        end
     end
 end)
