@@ -208,48 +208,7 @@ azureModdedButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 azureModdedButton.Size = UDim2.new(1, -20, 0, 40)
 azureModdedButton.Position = UDim2.new(0, 10, 0, 10)
 azureModdedButton.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Actyrn/Scripts/main/AzureModded"))()
-end)
-
--- Fisch Page Buttons
-local freeFischButton = Instance.new("TextButton")
-freeFischButton.Parent = fischPage
-freeFischButton.Text = "Free Fisch Script"
-freeFischButton.Font = Enum.Font.SourceSans
-freeFischButton.TextSize = 16
-freeFischButton.TextColor3 = Color3.new(1, 1, 1)
-freeFischButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-freeFischButton.Size = UDim2.new(1, -20, 0, 40)
-freeFischButton.Position = UDim2.new(0, 10, 0, 10)
-freeFischButton.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet("loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()"))()
-end)
-
-local keyFischButton = Instance.new("TextButton")
-keyFischButton.Parent = fischPage
-keyFischButton.Text = "Key Required Fisch"
-keyFischButton.Font = Enum.Font.SourceSans
-keyFischButton.TextSize = 16
-keyFischButton.TextColor3 = Color3.new(1, 1, 1)
-keyFischButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-keyFischButton.Size = UDim2.new(1, -20, 0, 40)
-keyFischButton.Position = UDim2.new(0, 10, 0, 60)
-keyFischButton.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet("loadstring(game:HttpGet('https://raw.githubusercontent.com/xZPUHigh/Spectrum-Cloud/main/Loader.lua'))()"))()
-end)
-
-local joinFischButton = Instance.new("TextButton")
-joinFischButton.Parent = fischPage
-joinFischButton.Text = "Join Fisch Game"
-joinFischButton.Font = Enum.Font.SourceSans
-joinFischButton.TextSize = 16
-joinFischButton.TextColor3 = Color3.new(1, 1, 1)
-joinFischButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-joinFischButton.Size = UDim2.new(1, -20, 0, 40)
-joinFischButton.Position = UDim2.new(0, 10, 0, 110)
-joinFischButton.MouseButton1Click:Connect(function()
-    local placeId = 16732694052
-    game:GetService("TeleportService"):Teleport(placeId)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesegod69/scripts/main/azuremodded"))()
 end)
 
 -- Toggle GUI with Z key
